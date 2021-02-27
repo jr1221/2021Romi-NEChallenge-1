@@ -40,9 +40,9 @@ public class ArcadeDrive extends CommandBase {
   @Override
   public void execute() {
     double x = m_xaxisSpeedSupplier.get();
-    x = Math.pow(x, 2) * Math.signum(x);
+    x = x*0.75;
     double z = m_zaxisRotateSupplier.get();
-    z = Math.pow(z, 2) * Math.signum(z);
+    z = z*0.6;
     m_drivetrain.arcadeDrive(x, z);
     SmartDashboard.putNumber("Joystick Foward", x);
     SmartDashboard.putNumber("Joystick Rotate", z);
