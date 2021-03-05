@@ -46,7 +46,6 @@ public class RobotContainer {
   // Assumes a gamepad plugged into channnel 0
   private final Joystick m_controller = new Joystick(0);
 
-  private int m_path = 5;
 
   // Create SmartDashboard chooser for autonomous routines
   private final SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -106,7 +105,7 @@ public class RobotContainer {
         ),
         new Pose2d(0.0, 0, new Rotation2d(Math.PI)),
         config); **/
-        String trajectoryJSON = "paths/output/" + m_path + "M.wpilib.json";
+        String trajectoryJSON = "paths/output/" + Constants.kPath + "M.wpilib.json";
         Trajectory exampleTrajectory2 = new Trajectory();
         try {
           Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);

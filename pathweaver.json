@@ -4,6 +4,6 @@
   "maxVelocity": 0.8,
   "maxAcceleration": 0.8,
   "wheelBase": 0.142072613,
-  "gameName": "Mondrian NE Romi",
+  "gameName": "ColorConundrum NE Romi",
   "outputDir": "src/main/deploy/paths"
 }
