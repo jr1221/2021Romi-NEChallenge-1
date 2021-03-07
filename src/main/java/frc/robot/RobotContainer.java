@@ -46,7 +46,6 @@ public class RobotContainer {
   // Assumes a gamepad plugged into channnel 0
   private final Joystick m_controller = new Joystick(0);
 
-  private int m_path = 5;
 
   // Create SmartDashboard chooser for autonomous routines
   private final SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -106,15 +105,12 @@ public class RobotContainer {
         ),
         new Pose2d(0.0, 0, new Rotation2d(Math.PI)),
         config); **/
-        String trajectoryJSON = "paths/output/" + m_path + "M.wpilib.json";
+        String trajectoryJSON = "paths/output/" + Constants.kTrajectoryPath + ".wpilib.json";
         Trajectory exampleTrajectory2 = new Trajectory();
         try {
           Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
           exampleTrajectory2 = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
-          SmartDashboard.putString("Path Loaded", ""+m_path);
-        } catch (IOException ex) {
-          SmartDashboard.putString("Path Loaded", ex.getLocalizedMessage());
-        }
+        } catch (IOException ex) {}
         SmartDashboard.putNumber("Path ETA",exampleTrajectory2.getTotalTimeSeconds());
         final Trajectory exampleTrajectory = exampleTrajectory2;
     RamseteCommand ramseteCommand = new RamseteCommand(
