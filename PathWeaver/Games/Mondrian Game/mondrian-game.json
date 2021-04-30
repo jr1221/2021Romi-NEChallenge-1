@@ -1,0 +1,10 @@
+{
+  "game": "Mondrian NE Romi",
+  "field-image": "MondrianSmaller.png",
+  "field-corners": {
+    "top-left": [0,0],
+    "bottom-right": [500, 500]
+  },
+  "field-size": [0.9144, 0.9144],
+  "field-unit": "meters"
+}

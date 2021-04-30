@@ -1,0 +1,10 @@
+{
+  "game": "ColorConundrum NE Romi",
+  "field-image": "ColorConundrumSmaller.png",
+  "field-corners": {
+    "top-left": [0,0],
+    "bottom-right": [1000, 500]
+  },
+  "field-size": [2.286, 1.143],
+  "field-unit": "meters"
+}
