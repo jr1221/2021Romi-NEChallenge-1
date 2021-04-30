@@ -38,5 +38,5 @@ public final class Constants {
     public static final double kRamseteZeta = 0.7;
   }
 
-  public static final String kTrajectoryPath = "Challenge2-1";
+  public static final String kTrajectoryPath = "Challenge3";
 }

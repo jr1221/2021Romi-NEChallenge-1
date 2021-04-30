@@ -15,14 +15,15 @@ public class ArcadeDrive extends CommandBase {
   private final Supplier<Double> m_zaxisRotateSupplier;
   private final Supplier<Boolean> m_lTankTurnSupplier;
   private final Supplier<Boolean> m_rTankTurnSupplier;
-
+  private final Supplier<Double> m_speedTauSupplier;
 
   /**
-   * Creates a new ArcadeDrive. This command will drive your robot according to the speed supplier
-   * lambdas. This command does not terminate.
+   * Creates a new ArcadeDrive. This command will drive your robot according to
+   * the speed supplier lambdas. This command does not terminate.
    *
-   * @param drivetrain The drivetrain subsystem on which this command will run
-   * @param xaxisSpeedSupplier Lambda supplier of forward/backward speed
+   * @param drivetrain           The drivetrain subsystem on which this command
+   *                             will run
+   * @param xaxisSpeedSupplier   Lambda supplier of forward/backward speed
    * @param zaxisRotateSuppplier Lambda supplier of rotational speed
    */
   public ArcadeDrive(
@@ -30,14 +31,20 @@ public class ArcadeDrive extends CommandBase {
       Supplier<Double> xaxisSpeedSupplier,
       Supplier<Double> zaxisRotateSuppplier,
       Supplier<Boolean> lTankTurnSupplier,
-      Supplier<Boolean> rTankTurnSupplier) {
+      Supplier<Boolean> rTankTurnSupplier,
+      Supplier<Double> speedTau) {
     m_drivetrain = drivetrain;
     m_xaxisSpeedSupplier = xaxisSpeedSupplier;
     m_zaxisRotateSupplier = zaxisRotateSuppplier;
     m_lTankTurnSupplier = lTankTurnSupplier;
     m_rTankTurnSupplier = rTankTurnSupplier;
+    m_speedTauSupplier = speedTau;
     addRequirements(drivetrain);
   }
+
+// L Stick sprint button
+// Click the stick and it will enter sprint mode, increasing speed.
+// Clicking the stick again will revert to normal mode, or by stopping/reversing direction
 
   // Called when the command is initially scheduled.
   @Override
@@ -46,12 +53,13 @@ public class ArcadeDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    
     double x = m_xaxisSpeedSupplier.get();
-    x = x*0.82;
+    x *= lerp(0.82, 0.82, m_speedTauSupplier.get());
     double z = m_zaxisRotateSupplier.get();
     if (Math.abs(z) < 0.1) z = 0;
     if (Math.abs(x) < 0.1) x = 0;
-    z = z*0.7;
+    z = z*0.6;
     boolean lturn = m_lTankTurnSupplier.get(), rturn = m_rTankTurnSupplier.get();
     if (lturn || rturn) {
       double turnSpeed = 0.6;
@@ -74,5 +82,10 @@ public class ArcadeDrive extends CommandBase {
   @Override
   public boolean isFinished() {
     return false;
+  }
+
+  public double lerp(double a, double b, double tau) {
+    tau = Math.max(Math.min(tau, 1), 0);
+    return (1 - tau) * a + tau * b;
   }
 }
